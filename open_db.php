@@ -32,4 +32,3 @@
 	$db->createFunction('month', 'month', 1);
 	$db->createFunction('week', 'week', 1);
 ?>
-

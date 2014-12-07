@@ -1,4 +1,4 @@
-<?php
+<?
 	require_once("open_db.php");
 	
 	$login = strtoupper($_GET["login"]);
@@ -9,6 +9,7 @@
 		if ( $result["password"] == $_GET["pwd"]) {
 			echo "OK";
 			$_SESSION["login"] = $login;
+			exit;
 		} else {
 			echo "Mauvais mot de passe.";
 		}

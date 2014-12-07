@@ -1,5 +1,17 @@
 <?
 	require_once("open_db.php");
+	if (!isset($_SESSION["login"])) {
+		header('Location: /atelier/connection.php');
+		$_SESSION["URI"]=$_SERVER("REQUEST_URI");
+		exit;
+	}
+	
+	if ( isset($_SESSION["URI"] ) ) {
+		$uri = $_SESSION["URI"];
+		session_unregister("URI");
+		header("location : " + $uri);
+		exit;
+	}
 ?>
 <!DOCTYPE html> 
 <html>
@@ -15,11 +27,7 @@
 	<script src="main.js"></script>
 	<script >
 var login = ""
-<?
-	if (isset($_SESSION["login"])) {
-		echo "login='" . $_SESSION["login"] ."';";
-	}
-?>
+
 </script>
 </head>
 
@@ -27,21 +35,7 @@ var login = ""
 
 <!-- Start of first page -->
 
-<div data-role="page" id="login">
-	<div data-role="header">
-		<h1>Connectez vous</h1>
-	</div>
-	<div role="main" class="ui-content">	
-		<div id="logingMessage"></div>
-		<label for="login">Trigramme:</label>
-		<input name="login" type="text" id="trigramme" required>
-		<label for="pwd" >Mot de Passe:</label>
-		<input name="pwd" id="pwd" type="password">
-		<button id="loginbut">LOGIN</button>
-		Si vous avez perdu votre mot de passe, tapez votre trigramme dans le champs si dessus et 
-		<a href="#" onclick="sendpwd();">cliquez ici</a>. Un mail vous sera envoyé.
-	</div>
-</div><!-- /page -->
+
 
 <div data-role="page" id="home">
 	<div data-role="header">
@@ -56,7 +50,7 @@ var login = ""
 		    <li><a href="#list" id="no_cr">Ateliers passés sans CR</a></li>
 		    <li><a href="#profil"  id="menu_add">Profil</a></li>
 		    <li><a href="reporting.php">Bilan du groupe</a></li>
-		    <li><a href="#logout" id="logout">Déconnexion</a></li>
+		    <li><a href="#" id="logout">Déconnexion</a></li>
 		</ul>
 	</div>
 	<div data-role="footer">

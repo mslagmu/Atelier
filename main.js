@@ -134,12 +134,6 @@ function logout(data,status,x){
 
 function modifyEntry() {
 	var search = location.search;
-	$(".login").html(login);
-	if ( login == "" ) {
-		$.mobile.navigate("#login");
-		askedSearch = search;
-		return;
-	}
 
 	if ( search != "" ) {
 		transformSearch(search);
@@ -159,10 +153,6 @@ function hashHandler() {
 		$.get("list.php",data,get_list,"html");
 		data={filter : "future"}
 	}
-
-	if ( hash == "#logout" ) {
-		$.get("logout.php","",logout,"html");
-	}
 }
 
 $("document").ready(function() {
@@ -180,12 +170,13 @@ $("document").ready(function() {
 		data = {filter : "nocr" };
 	});
 
-	$("#loginbut").click(function(){
-		var data = { login : $("#trigramme").val(), pwd : $("#pwd").val() };
-		$.get("login.php",data,log_validate,"html");
-		$.mobile.loading("show");
+	$("#logout").click(function(){
+		$.get("logout.php","",logout,"html");
+		location = "connection.php";
 	});
-	
+
+
+
 	$("#npassword").click(function(){
 		var data = { action : "change", pwd : $("#npwd").val() };
 		$.get("password.php",data,chpasswd_validate,"html");
