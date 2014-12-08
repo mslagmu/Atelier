@@ -39,7 +39,7 @@ var login = ""
 
 <div data-role="page" id="home">
 	<div data-role="header">
-		<h1>Menu : <span class="login"></span></h1>
+		<h1>Menu : <?=$login  ?></span></h1>
 	</div>
 	<div role="main" class="ui-content">	
 		<ul data-role="listview">
@@ -62,7 +62,7 @@ var login = ""
 <div data-role="page" id="list">
 
 	<div data-role="header">
-		<h1>Ateliers : <span class="login"></span></h1>
+		<h1>Ateliers : <?=$login  ?></span></h1>
 		<a href="/atelier/#home">retour</a> <a href="#add">Nouvel Atelier</a>
 	</div><!-- /header -->
 
@@ -80,7 +80,7 @@ var login = ""
 <div data-role="page" id="add">
 
 	<div data-role="header">
-		<h1>Ajouter un atelier : <span class="login"></h1>
+		<h1>Ajouter un atelier : <?=$login  ?> </h1>
 	</div><!-- /header -->
 
 	<div role="main" class="ui-content">
@@ -101,6 +101,7 @@ var login = ""
 		$result = $db->query("select * from users;");
 		while($res = $result->fetchArray(SQLITE3_ASSOC)){
 			$l = $res["trigramme"];
+			if ( $l == $login ) continue;
 			$idb = "cb_" . $l;
 ?>
 		<input class="person" name="<?=$l ?>" id="<?=$idb ?>" type="checkbox">
@@ -115,7 +116,7 @@ var login = ""
 </div><!-- /page -->
 <div data-role="page" id="modify">
 	<div data-role="header">
-		<h1>Modifier l'atelier <span id="mid"> : <span class="login"></span></h1>
+		<h1>Modifier l'atelier <span id="mid"> : <?=$login  ?></span></h1>
 	</div><!-- /header -->
 	<div role="main" class="ui-content">
 		<div id="mMessage"></div>
@@ -148,7 +149,7 @@ var login = ""
 </div><!-- /page -->
 <div data-role="page" id="profil">
 	<div data-role="header">
-		<h1>Changer de mot de passe</h1>
+		<h1>Changer de mot de passe : <?=$login  ?></h1>
 	</div><!-- /header -->
 	<div role="main" class="ui-content">
 			<div id="npMessage"></div>

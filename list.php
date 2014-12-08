@@ -16,6 +16,11 @@
 	function crpublish($id,$db,$login) {
 		$db->exec("update workshops set cr=1 where rowid = $id");
 	}
+	
+	function crunpublish($id,$db,$login) {
+		$db->exec("update workshops set cr=0 where rowid = $id");
+	}
+
 
 	function add_comment($id,$db,$login) {
 		$resfull = $db->querySingle("SELECT rowid,* FROM workshops WHERE rowid = $id",true);
@@ -113,7 +118,7 @@
 	while($res = $result->fetchArray(SQLITE3_ASSOC)){ 
 		$id = $res["rowid"];
 		$creator = $res["creator"];
-		$date    = utf8_encode(strftime('%A %d %B %Y %H:%M',$res["date"]));
+		$date    = utf8_encode(strftime('%a %d/%m/%Y %H:%M',$res["date"]));
 		$isfollower = strpos($res["followers"],$login);
 		$isperson   = strpos($res["persons"],$login);
 		
@@ -128,9 +133,9 @@
 	?>
 
 	<li>
-		<p><b>Numéro d'atelier: </b><?=$id?></p>
-		<p><b>Date : </b><?=$date?> <b>Organisteur : </b><?=$res["creator"]?></p>
-		<p><b>Emplacement</b> : <?=$res["location"]?>  <b>Inscrits : </b> <?=$res["persons"]?>  <b>Suiveurs : </b> <?=$res["followers"]?></p>
+		<p><b>Date: </b><?=$date?> <b>Organisteur : </b><?=$res["creator"]?> <b>No: </b><?=$id?></p>
+		<p><b>Lieu</b> : <?=$res["location"]?>  </p>
+		<p><b>Inscrits : </b> <?=$res["persons"]?>  <b>Suiveurs : </b> <?=$res["followers"]?></p>
 		<p><b>Sujet</b> : <?=$res["topic"]?></p>
 		<p><?=$cr?></p>
 		<div class="commentblock" id="c_<?=$id?>">
@@ -158,35 +163,44 @@
 		<option value="aaa">Choisir</option>
 
 		<?
-		if ( $isfollower===FALSE && $isperson===FALSE && $isFuture ) {
-		?>
-			<option value="follow">Suivre l'atelier</option>
-		<? }?>
+		if ( $login == "ADMIN") { ?>
+				<option value="modify">Modifier l'atelier</option>
+				<option value="destroy">Détruire l'atelier</option>
+				<option value="crpublish">Publier le CR</option>
+				<option value="crunpublish">Retirer le CR</option>
 		<?
-		if ( !( $isfollower===FALSE ) && $isperson===FALSE && $isFuture) {
-		?>
-			<option value="unfollow">Ne plus suivre l'atelier</option>
-		<? } ?>
-		<? if ( (!($isperson===FALSE)) && ( $res["cr"] == 0 ) && !$isFuture ) {
-		?>
-			<option value="crpublish">Publier le CR</option>
-		<? } ?>
-		<?
-			if ($login == $creator && $isFuture ) {
-		?>
-			<option value="modify">Modifier l'atelier</option>
-			<option value="destroy">Détruire l'atelier</option>
-		<? } ?>
-		<?
-		if ( $isFuture )
-			if ( $isperson === FALSE  ) {
-		?>
-			<option value="record">Participer à l'atelier</option>
+		} else {
+			if ( $isfollower===FALSE && $isperson===FALSE && $isFuture ) {
+			?>
+				<option value="follow">Suivre l'atelier</option>
+			<? }?>
+			<?
+			if ( !( $isfollower===FALSE ) && $isperson===FALSE && $isFuture) {
+			?>
+				<option value="unfollow">Ne plus suivre l'atelier</option>
+			<? } ?>
+			<? if ( (!($isperson===FALSE)) && ( $res["cr"] == 0 ) && !$isFuture ) {
+			?>
+				<option value="crpublish">Publier le CR</option>
+			<? } ?>
+			<?
+				if ($login == $creator && $isFuture ) {
+			?>
+				<option value="modify">Modifier l'atelier</option>
+				<option value="destroy">Détruire l'atelier</option>
+			<? } ?>
+			<?
+			if ( $isFuture )
+				if ( $isperson === FALSE  ) {
+			?>
+				<option value="record">Participer à l'atelier</option>
 
-		<?
-		} else { ?>
-			<option value="unrecord">Se désinscrire</option>
-		<? } ?>
+			<?
+			} else { ?>
+				<option value="unrecord">Se désinscrire</option>
+			<? }
+		}
+		 ?>
 		</select>
     </li>
 
