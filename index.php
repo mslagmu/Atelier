@@ -1,15 +1,15 @@
 <?
 	require_once("open_db.php");
 	if (!isset($_SESSION["login"])) {
+		$_SESSION["URI"]=$_SERVER["REQUEST_URI"];
 		header('Location: /atelier/connection.php');
-		$_SESSION["URI"]=$_SERVER("REQUEST_URI");
 		exit;
 	}
 	
 	if ( isset($_SESSION["URI"] ) ) {
 		$uri = $_SESSION["URI"];
-		session_unregister("URI");
-		header("location : " + $uri);
+		unset($_SESSION["URI"]);
+		header("Location: " . $uri);
 		exit;
 	}
 ?>

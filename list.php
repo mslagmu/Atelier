@@ -3,8 +3,6 @@
 	require_once("sendmail.php");
 
 
-	$db->createFunction('concerned', 'concerned', 4);
-	
 	function record($id,$db,$login) {
 		$res = $db->querySingle("SELECT rowid, * FROM workshops WHERE rowid = $id",true);
 		$res["persons"] = $res["persons"] . ",$login";
@@ -159,15 +157,16 @@
 		</div>
 		
 		<button class="ui-btn ui-btn-inline ui-mini" onclick="commentaire(<?=$id?>);">Commentaire</button>
-		<select id="select_<?=$id?>" onchange="action(<?=$id?>);">
-		<option value="aaa">Choisir</option>
-
 		<?
+		ob_start();
 		if ( $login == "ADMIN") { ?>
 				<option value="modify">Modifier l'atelier</option>
 				<option value="destroy">Détruire l'atelier</option>
-				<option value="crpublish">Publier le CR</option>
-				<option value="crunpublish">Retirer le CR</option>
+			<?if ( $res["cr"] == 0 )  {?>
+					<option value="crpublish">Publier le CR</option>
+			<?} else { ?>
+					<option value="crunpublish">Retirer le CR</option>
+			<?}?>
 		<?
 		} else {
 			if ( $isfollower===FALSE && $isperson===FALSE && $isFuture ) {
@@ -200,8 +199,14 @@
 				<option value="unrecord">Se désinscrire</option>
 			<? }
 		}
-		 ?>
-		</select>
+		$options = ob_get_clean();
+		if (trim($options) != "" ) {
+		 ?> 
+			<select id="select_<?=$id?>" onchange="action(<?=$id?>);">
+			<option value="aaa">Choisir</option>
+				<?= $options ?>
+			</select>
+		<?}?>
     </li>
 
 <?
