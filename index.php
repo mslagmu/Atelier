@@ -50,6 +50,7 @@ var login = ""
 		    <li><a href="#list" id="no_cr">Ateliers passés sans CR</a></li>
 		    <li><a href="#profil"  id="menu_add">Profil</a></li>
 		    <li><a href="reporting.php">Bilan du groupe</a></li>
+		    <li><a href="frequentation.php">Tableau des fréquentations</a></li>
 		    <li><a href="#" id="logout">Déconnexion</a></li>
 		</ul>
 	</div>

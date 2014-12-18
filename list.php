@@ -135,7 +135,9 @@
 		<p><b>Lieu</b> : <?=$res["location"]?>  </p>
 		<p><b>Inscrits : </b> <?=$res["persons"]?>  <b>Suiveurs : </b> <?=$res["followers"]?></p>
 		<p><b>Sujet</b> : <?=$res["topic"]?></p>
-		<p><?=$cr?></p>
+		<? if ( !$isFuture ) { ?>
+			<p><?=$cr?></p>
+		<? } ?>
 		<div class="commentblock" id="c_<?=$id?>">
 		<hr>
 		<p><b>Commentaires:</b></p>
