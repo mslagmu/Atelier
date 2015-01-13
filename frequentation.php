@@ -23,8 +23,9 @@
 		unset($freq[$a][$a]);
 	}
 
+	$now = time();
 
-	$result = $db->query("select persons from workshops;");
+	$result = $db->query("select persons from workshops where date < ". $now . ";");
 	while($res = $result->fetchArray(SQLITE3_ASSOC)){
 		$persons = explode(",",$res["persons"]);
 		$l = count($persons);

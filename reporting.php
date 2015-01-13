@@ -28,9 +28,10 @@ require_once("open_db.php");
 			  <th>Nombre</th>
 		   </tr>
 		<?
+		$now = time();
 		$result = $db->query("
 			select u.trigramme, count(w.rowid) as c from workshops w ,users u
-			where recorded(u.trigramme,w.persons) = 1
+			where recorded(u.trigramme,w.persons) = 1 and date < ". $now . "
 			group by u.trigramme ;
 		");
 
@@ -50,7 +51,7 @@ require_once("open_db.php");
 		   </tr>
 		<?
 		$result = $db->query("
-			select month(date) m, count(1) c from workshops 
+			select month(date) m, count(1) c from workshops where date < ". $now . "
 			group by m;
 		");
 
@@ -71,7 +72,7 @@ require_once("open_db.php");
 		   </tr>
 		<?
 		$result = $db->query("
-			select week(date) w, count(1) c from workshops 
+			select week(date) w, count(1) c from workshops where date < ". $now . "
 			group by w;
 		");
 
