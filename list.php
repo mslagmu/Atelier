@@ -85,13 +85,13 @@
 
 	if ($_GET["filter"] == 'future' ) {
 		$query = "select rowid,* from workshops
-					where date > $time
+					where date > $time and date < $time + 1814400
 					order by date;";
 	} 
 	
 	if ($_GET["filter"] == 'all' ) {
 		$query = "select rowid,* from workshops
-					order by date;";
+					order by date desc;";
 	}
 	
 	if ($_GET["filter"] == 'nocr' ) {
@@ -103,7 +103,7 @@
 	if ($_GET["filter"] == 'private' ) {
 		$query = "select rowid, * from workshops where
 				concerned('$login',creator,persons,followers)=1 
-				order by date;";
+				order by date desc;";
 	}
 	
 	if (isset($_GET["id"])) {
