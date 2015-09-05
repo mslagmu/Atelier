@@ -1,11 +1,28 @@
 <?php
 	session_start();
+	
+	if ( ! isset($_SESSION["database_name"]) ) {
+		if ( isset ( $_GET["groupe"] ) ) {
+			$_SESSION["database_name"]= $_GET["groupe"]. ".db";
+		} else {
+			echo "votre groupe n'est pas identifié";
+			session_destroy();
+			exit;
+		}
+	} 
+
+	if ( !file_exists($_SESSION["database_name"] )) {
+		echo "Groupe inconnu";
+		session_destroy();
+		exit;
+	}
+
 	setlocale(LC_TIME, 'fr','fr-FR','fr_FR@euro','fr_FR.utf8','fr-FR','fra');
 
 	if (isset ( $_SESSION["login"]) ) $login = $_SESSION["login"];
 
-	$db=new SQLite3("atelier.db");
-	
+	$db=new SQLite3($_SESSION["database_name"]);
+
 	function concerned($login,$creator,$persons,$followers) {
 		if ( $login == $creator ) return 1;
 		if ( !( strpos($followers,$login) === FALSE ) ) return 1;

@@ -1,3 +1,7 @@
 jqm/*.*
 .*\.db
 .*\.json
+syntax: glob
+Ajout de Vanina.sql
+ajout.ods
+.directory
