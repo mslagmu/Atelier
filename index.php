@@ -39,7 +39,7 @@ var login = ""
 
 <div data-role="page" id="home">
 	<div data-role="header">
-		<h1>Menu : <?=$login  ?></span></h1>
+		<h1>Menu : <?=$name  ?></span></h1>
 	</div>
 	<div role="main" class="ui-content">	
 		<ul data-role="listview">
@@ -81,7 +81,7 @@ var login = ""
 <div data-role="page" id="add">
 
 	<div data-role="header">
-		<h1>Ajouter un atelier : <?=$login  ?> </h1>
+		<h1>Ajouter un atelier : <?=$name  ?> </h1>
 	</div><!-- /header -->
 
 	<div role="main" class="ui-content">
@@ -117,7 +117,7 @@ var login = ""
 </div><!-- /page -->
 <div data-role="page" id="modify">
 	<div data-role="header">
-		<h1>Modifier l'atelier <span id="mid"> : <?=$login  ?></span></h1>
+		<h1>Modifier l'atelier <span id="mid"> : <?=$name  ?></span></h1>
 	</div><!-- /header -->
 	<div role="main" class="ui-content">
 		<div id="mMessage"></div>
@@ -150,7 +150,7 @@ var login = ""
 </div><!-- /page -->
 <div data-role="page" id="profil">
 	<div data-role="header">
-		<h1>Changer de mot de passe : <?=$login  ?></h1>
+		<h1>Changer de mot de passe : <?=$name  ?></h1>
 	</div><!-- /header -->
 	<div role="main" class="ui-content">
 			<div id="npMessage"></div>

@@ -19,8 +19,10 @@
 
 	setlocale(LC_TIME, 'fr','fr-FR','fr_FR@euro','fr_FR.utf8','fr-FR','fra');
 
-	if (isset ( $_SESSION["login"]) ) $login = $_SESSION["login"];
-
+	if (isset ( $_SESSION["login"]) ) {
+		$login = $_SESSION["login"];
+		$name = $_SESSION["name"];
+	}
 	$db=new SQLite3($_SESSION["database_name"]);
 
 	function concerned($login,$creator,$persons,$followers) {
@@ -40,7 +42,7 @@
 	}
 	
 	function week ($time) {
-		$t2 = $time - 1412208000; //timestamp du 2 octobre 2014
+		$t2 = $time - $_SESSION["date_debut"]; //timestamp du 2 octobre 2014
 		return floor($t2/604800) ; //Correspond au nombre de seconde pour 7 jours
 	}
 

@@ -1,4 +1,8 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
+<?
+	require_once("open_db.php");
+	$result = $db->query("select * from users;");
+?>
 <html>
 <head>
 	<title>Page Title</title>
@@ -56,7 +60,14 @@ $("document").ready(function() {
 	<div role="main" class="ui-content">	
 		<div id="logingMessage"></div>
 		<label for="login">Trigramme:</label>
-		<input name="login" type="text" id="trigramme" required>
+		<select name="login" id="trigramme">
+		<?
+			while($res = $result->fetchArray(SQLITE3_ASSOC)){
+				echo "<option value=\"". $res["trigramme"] ."\">".$res["name"]."</option>\n";
+			}
+		?>
+		<option value="ADMIN">Administrateur</option>
+		</select>
 		<label for="pwd" >Mot de Passe:</label>
 		<input name="pwd" id="pwd" type="password">
 		<button id="loginbut" onclick("login();") >LOGIN</button>
